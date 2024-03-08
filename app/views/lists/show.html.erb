@@ -18,7 +18,7 @@
             <p><%= bookmark.movie.overview %></p>
             <p><strong><%= bookmark.comment %></strong></p>
           </div>
-          <%= bookmark.movie.rating %>
+          <%= bookmark.movie.rating %><div class="rating">★</div>
           <%= link_to bookmark_path(bookmark), data: {turbo_method: :delete, turbo_confirm: "Are you sure?"}, class: 'text-decoration-none' do %>
             <i class="fa fa-trash"></i>
           <% end %>
@@ -28,7 +28,7 @@
 </div>
 
 <div class="card-product m-3">
-  <%= cl_image_tag("filmaventures_ejw6aw", crop: :fill) %>
+  <%= cl_image_tag(@list.photo.key, crop: :fill) %>
   <div class="card-product-infos">
     <h2>add a movie</h2>
     <%= simple_form_for [@list, @bookmark] do |f| %>
@@ -40,18 +40,23 @@
 </div>
 
 <div class="d-flex m-3">
-  <div>
+  <div class='review'>
     <h2>Reviews</h2>
     <% @list.reviews.each do |review| %>
       <div>
-        <%= review.comment %>
-        <%= review.rating %>
-        <p>posted <%= time_ago_in_words(review.created_at) %> ago</p>
+        <div class="border-bottom border-gray pb-3 lh-1">
+          <div class='d-flex'>
+            <div class="rating"><%= render_stars(review.rating) %></div>
+            <p><i> posted <%= time_ago_in_words(review.created_at) %> ago</i> </p>
+          </div>
+          <%= review.comment %>
+        </div>
+
       </div>
     <% end %>
   </div>
   <div class="card-product">
-    <%= cl_image_tag("filmaventures_ejw6aw", crop: :fill) %>
+    <%= image_tag 'https://res.cloudinary.com/dk7qaea1j/image/upload/v1709906737/review_fphicd.jpg', crop: :fill %>
     <div class="card-product-infos">
       <h2>Add your review</h2>
       <%= simple_form_for [@list, @review] do |f| %>
