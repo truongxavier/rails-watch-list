@@ -29,6 +29,9 @@ gem "jbuilder"
 # gérer les api key
 gem "dotenv-rails"
 
+# image upload system
+gem "cloudinary"
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
 
